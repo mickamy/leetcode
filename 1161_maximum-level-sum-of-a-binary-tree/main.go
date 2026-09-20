@@ -4,15 +4,15 @@ import (
 	"math"
 )
 
-type queue[T any] struct {
+type Queue[T any] struct {
 	items []T
 }
 
-func (q *queue[T]) enqueue(v T) {
+func (q *Queue[T]) Enqueue(v T) {
 	q.items = append(q.items, v)
 }
 
-func (q *queue[T]) dequeue() (T, bool) {
+func (q *Queue[T]) Dequeue() (T, bool) {
 	if len(q.items) == 0 {
 		var zero T
 		return zero, false
@@ -23,26 +23,26 @@ func (q *queue[T]) dequeue() (T, bool) {
 	return val, true
 }
 
-func (q *queue[T]) len() int {
+func (q *Queue[T]) Len() int {
 	return len(q.items)
 }
 
 func maxLevelSum(root *TreeNode) int {
-	q := queue[*TreeNode]{}
-	q.enqueue(root)
+	q := Queue[*TreeNode]{}
+	q.Enqueue(root)
 
 	maximum, level, maxLevel := math.MinInt, 1, 0
-	for q.len() > 0 {
+	for q.Len() > 0 {
 		var sum int
-		count := q.len()
+		count := q.Len()
 		for range count {
-			node, _ := q.dequeue()
+			node, _ := q.Dequeue()
 			sum += node.Val
 			if node.Left != nil {
-				q.enqueue(node.Left)
+				q.Enqueue(node.Left)
 			}
 			if node.Right != nil {
-				q.enqueue(node.Right)
+				q.Enqueue(node.Right)
 			}
 		}
 
